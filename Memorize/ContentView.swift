@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    //Making arraays
+    let emojis = ["💀", "🗿", "🦈", "👽"]
+    
     var body: some View {
         HStack {
-            CardViewCustom(isFaceUp: true)
-            CardViewCustom()
-            CardViewCustom()
-            CardViewCustom()
+            //Making ForEach
+            ForEach(0..<4, id: \.self){ num in
+                CardViewCustom(content: emojis[num])
+            }
+            
         }.foregroundColor(.blue).padding()
         VStack {
             Image(systemName: "globe")
@@ -27,6 +31,7 @@ struct ContentView: View {
 
 struct CardViewCustom: View {
     @State var isFaceUp = false
+    var content: String
     
     var body: some View {
         ZStack {
@@ -34,13 +39,14 @@ struct CardViewCustom: View {
             if isFaceUp {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
-                Text("Hello")
+                Text(content)
             } else {
                 base
             }
         }
         .onTapGesture {
-           isFaceUp = !isFaceUp
+            //toggle is the same as isFaceUp = !isFaceUp
+            isFaceUp.toggle()
         }
     }
 }
